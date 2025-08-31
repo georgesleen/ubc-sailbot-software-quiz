@@ -1,3 +1,6 @@
+FULL_REVOLUTION_DEGREES: int = 360
+
+
 def bound_to_180(angle: float) -> float:
     """Bounds the provided angle between [-180, 180) degrees.
 
@@ -11,7 +14,18 @@ def bound_to_180(angle: float) -> float:
     Returns:
         float: The bounded angle in degrees.
     """
-    return 0
+
+    upper_bound_exclusive: int = 180
+    lower_bound_inclusive: int = -180
+
+    revolutions_outside: int = round(angle / FULL_REVOLUTION_DEGREES)
+    bounded_angle: float = angle - revolutions_outside * FULL_REVOLUTION_DEGREES
+
+    # Account for excluded upper interval
+    if bounded_angle == upper_bound_exclusive:
+        return lower_bound_inclusive
+
+    return bounded_angle
 
 
 def is_angle_between(first_angle: float, middle_angle: float, second_angle: float) -> bool:
