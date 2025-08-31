@@ -1,4 +1,4 @@
-def bound_to_180(angle):
+def bound_to_180(angle: float) -> float:
     """Bounds the provided angle between [-180, 180) degrees.
 
     e.g.)
@@ -14,7 +14,7 @@ def bound_to_180(angle):
     return 0
 
 
-def is_angle_between(first_angle, middle_angle, second_angle):
+def is_angle_between(first_angle: float, middle_angle: float, second_angle: float) -> bool:
     """Determines whether an angle is between two other angles.
 
     e.g.)
