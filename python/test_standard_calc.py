@@ -20,7 +20,7 @@ def test_bound_out_one_revolution():
 
 def test_bound_out_multiple_revolutions():
     assert bound_to_180(760) == 40
-    assert bound_to_180(-1100) == -40
+    assert bound_to_180(-1100) == -20
 
 def test_bound_intervals2():
     assert bound_to_180(-720 - 180) == -180
