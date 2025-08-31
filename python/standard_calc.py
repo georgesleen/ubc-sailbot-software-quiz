@@ -28,7 +28,9 @@ def bound_to_180(angle: float) -> float:
     return bounded_angle
 
 
-def is_angle_between(first_angle: float, middle_angle: float, second_angle: float) -> bool:
+def is_angle_between(
+    first_angle: float, middle_angle: float, second_angle: float
+) -> bool:
     """Determines whether an angle is between two other angles.
 
     e.g.)
