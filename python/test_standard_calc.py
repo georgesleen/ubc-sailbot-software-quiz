@@ -58,7 +58,7 @@ def test_between_multiple_revolutions():
 def test_between_ambiguous_no_reflex_case():
     # With no larger angle, I argue there is no reflex angle
     # and thus this ambiguous case should resolve to true
-    # (if the docstring is not to be updated)
+    # (if the docstring is not to be clarified)
     assert is_angle_between(0, 90, 180)
     assert is_angle_between(0, -90, 180)
     assert is_angle_between(0, 90, -180)
@@ -67,3 +67,4 @@ def test_between_ambiguous_no_reflex_case():
 def test_between_angle_on_bounds():
     assert not is_angle_between(0, 0, 90)
     assert not is_angle_between(0, 180, 180)
+    assert not is_angle_between(0, 0, 0)

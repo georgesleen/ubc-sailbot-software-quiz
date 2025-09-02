@@ -1,4 +1,5 @@
 FULL_REVOLUTION_DEGREES: int = 360
+HALF_REVOLUTION_DEGREES: int = 180
 
 
 def bound_to_180(angle: float) -> float:
@@ -14,17 +15,9 @@ def bound_to_180(angle: float) -> float:
     Returns:
         float: The bounded angle in degrees.
     """
-
-    upper_bound_exclusive: int = 180
-    lower_bound_inclusive: int = -180
-
-    revolutions_outside: int = round(angle / FULL_REVOLUTION_DEGREES)
-    bounded_angle: float = angle - revolutions_outside * FULL_REVOLUTION_DEGREES
-
-    # Account for excluded upper interval
-    if bounded_angle == upper_bound_exclusive:
-        return lower_bound_inclusive
-
+    bounded_angle = (
+        angle + HALF_REVOLUTION_DEGREES
+    ) % FULL_REVOLUTION_DEGREES - HALF_REVOLUTION_DEGREES
     return bounded_angle
 
 
@@ -45,4 +38,25 @@ def is_angle_between(
     Returns:
         bool: True when `middle_angle` is not in the reflex angle of `first_angle` and `second_angle`, false otherwise.
     """
-    return True
+    first_angle = bound_to_180(first_angle)
+    middle_angle = bound_to_180(middle_angle)
+    second_angle = bound_to_180(second_angle)
+
+    if (middle_angle == first_angle) or (middle_angle == second_angle):
+        # Ambiguous case where the angle compared is on one of the existing angles
+        # I have chosen to return false when this occurs
+        return False
+    elif abs(first_angle - second_angle) == HALF_REVOLUTION_DEGREES:
+        # Ambiguous case where there the "reflex" angle is the same size
+        # I choose to return true when it exists between either angle
+        return True
+    else:
+        angular_sweep = bound_to_180(second_angle - first_angle)
+        middle_relative_position = bound_to_180(middle_angle - first_angle)
+
+        if angular_sweep > 0:
+            # Arc sweeps counter-clockwise
+            return 0 < middle_relative_position < angular_sweep
+        else:
+            # Arc sweeps clockwise
+            return 0 > middle_relative_position > angular_sweep
